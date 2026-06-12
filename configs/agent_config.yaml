@@ -1,0 +1,24 @@
+agent:
+  max_steps: 6
+  require_citations: true
+  answer_language: zh
+
+langgraph:
+  entrypoint: query_rewrite
+  finish_node: generate_answer
+  recursion_limit: 8
+  checkpoint:
+    enabled: false
+    backend: memory
+  nodes:
+    query_rewrite:
+      prompt: prompts/query_rewrite.md
+    retrieve:
+      retriever: hybrid_multi_hop
+    evidence_check:
+      prompt: prompts/evidence_check.md
+    generate_answer:
+      prompt: prompts/answer.md
+  routing:
+    evidence_enough: generate_answer
+    evidence_not_enough: retrieve

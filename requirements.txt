@@ -1,0 +1,22 @@
+# Core LangGraph / RAG runtime
+langchain>=0.2
+langgraph>=0.2
+openai>=1.0
+pydantic>=2
+python-dotenv>=1
+pyyaml>=6
+numpy>=1.26
+
+# PDF parsing and MinerU pipeline
+pymupdf>=1.24
+beautifulsoup4>=4
+mineru[pipeline]>=3.2.3
+six>=1.17
+
+# Local vector index
+sentence-transformers>=3
+faiss-cpu>=1.8
+
+# Tests and development checks
+pytest>=8
+ruff>=0.6

@@ -1,0 +1,30 @@
+[project]
+name = "financial-agentic-rag"
+version = "0.1.0"
+description = "Agentic-RAG project for multi-hop legal and financial document QA."
+requires-python = ">=3.11"
+dependencies = [
+  "langchain>=0.2",
+  "langgraph>=0.2",
+  "openai>=1.0",
+  "pydantic>=2",
+  "python-dotenv>=1",
+  "pyyaml>=6",
+  "numpy>=1.26",
+  "beautifulsoup4>=4",
+  "mineru[pipeline]>=3.2.3",
+  "six>=1.17",
+  "pymupdf>=1.24",
+  "sentence-transformers>=3",
+  "faiss-cpu>=1.8",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

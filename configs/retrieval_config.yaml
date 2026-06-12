@@ -1,0 +1,64 @@
+mineru:
+  command: mineru
+  device: cuda
+  cuda_visible_devices: "0"
+  method: auto
+  backend: pipeline
+  lang: ch
+  model_source: local
+  source_pdf_dir: pdf
+  output_dir: data/processed/mineru
+  manifest_path: pdf/manifest.csv
+  overwrite: false
+
+chunking:
+  chunk_size: 1000
+  chunk_overlap: 150
+  min_text_length: 20
+  context_blocks_before_table: 2
+  context_blocks_after_table: 2
+  chapter_patterns:
+    - "^第[一二三四五六七八九十百千万零〇0-9]+编"
+    - "^第[一二三四五六七八九十百千万零〇0-9]+章"
+    - "^第[一二三四五六七八九十百千万零〇0-9]+节"
+    - "^第[一二三四五六七八九十百千万零〇0-9]+条"
+
+table_handling:
+  keep_context_with_table: true
+  require_header: true
+  repeat_header_on_cross_page: true
+  header_fallback_from_previous_table: true
+
+noise_cleaning:
+  remove_headers_footers: true
+  remove_page_numbers: true
+  remove_toc_noise: true
+  keep_legal_article_numbers: true
+
+output_paths:
+  chunks_jsonl: data/processed/chunks.jsonl
+  rejected_chunks_jsonl: data/processed/rejected_chunks.jsonl
+  markdown_dir: data/processed/markdown
+  parse_report: data/processed/mineru_parse_report.json
+
+retrieval:
+  top_k: 5
+  candidate_top_k: 20
+  final_top_k: 5
+  rerank_top_k: 5
+  rrf_k: 60
+  enable_reranker: true
+  enable_multi_hop: true
+  enable_hybrid_search: true
+
+vectorstore:
+  backend: faiss
+  embedding_model: bge-m3
+  embedding_batch_size: 32
+  vectorstore_dir: storage/vectorstore
+  docstore_dir: storage/docstore
+  normalize_embeddings: true
+  pgvector:
+    enabled: false
+    dsn_env: PGVECTOR_DSN
+    collection_name: financial_agentic_rag
